@@ -5,33 +5,37 @@
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<style>
 		body{margin-top:30px;}
-		.taxonomy-cloud li{padding:15px 2px;}
+		.tag-cloud li {margin:3px;padding:10px;font-size:1em;cursor: pointer;}
+		.tag-cloud .tag-active{background-color:red;}
+/*		.taxonomy-cloud li{padding:15px 2px;}
 		.tag{font-size:1.5em}
 		.taxonomy-cloud{padding:20px 0}
 		.taxonomy-cloud .taxonomy-createTag{background-color:#ddd!important; color:#fff!important; }
 		.taxonomy-cloud .taxonomy-createTag:hover{background-color:#cacaca!important; }
 		.taxonomy-cloud .tag,.taxonomy-cloud .taxonomy-createTag{padding:10px; font-size:0.9em; }
 		.taxonomy-cloud .tag-active{background-color:red!important; }
-		.taxonomy-cloud .tag-new-undo{margin-left:10px; color:#fff !important; }
+		.taxonomy-cloud .tag-new-undo{margin-left:10px; color:#fff !important; }*/
 	</style>
 </head>
 <body>
 	<div class="container">
 		<form action="#">
-			<ul class="taxonomy-cloud list-inline">
-				<li><a href="#" class="label label-default taxonomy-createTag"><span class="fa fa-plus"></span> Create a tag</a></li>
-				<li><a href="#" class="label label-default tag">Insects</a></li>
-				<li><a href="#" class="label label-default tag">Butterfly</a></li>
-				<li><a href="#" class="label label-default tag">Elephant</a></li>
-				<li><a href="#" class="label label-default tag">Mammals</a></li>
-				<li><a href="#" class="label label-default tag">Fish</a></li>
-				<li><a href="#" class="label label-default tag">Arachnids</a></li>
-				<li><a href="#" class="label label-default tag">Salmon</a></li>
-				<li><a href="#" class="label label-default tag">Tarantula</a></li>
+			<ul class="tag-cloud list-inline">
+				<li>Insects</li>
+				<li>Butterfly</li>
+				<li>Elephant</li>
+				<li>Mammals</li>
+				<li>Fish</li>
+				<li>Arachnids</li>
+				<li>Salmon</li>
+				<li>Tarantula</li>
 			</ul>
 		</form>
 	</div>
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="dist/taxonomy.min.js"></script>
+	<script src="src/final.js"></script>
+	<script>
+	$('.tag-cloud').taxonomy_jquery();
+	</script>
 </body>
 </html>

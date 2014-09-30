@@ -119,9 +119,22 @@ taxonomy_jquery.cutInputVal = function(element){
 
 
  (function($) {
+
   ///////////////////////////////
   /// Plugin stuff
   //////////////////////////////
+  $.fn.taxonomy_jquery = function() {
+
+    // Add class to each list item
+    this.find('li').each(function(){
+      $(this).addClass('label label-default tag');
+    });
+
+  };
+
+  //////////////////
+  // Old Plugin Stuff
+  //////////////////
   $(taxonomy_jquery.listClass+' '+taxonomy_jquery.tagClass).click(function(){
     if($(this).hasClass(taxonomy_jquery.tagActiveClass.substr(1))){
       $(this).removeClass(taxonomy_jquery.tagActiveClass.substr(1));

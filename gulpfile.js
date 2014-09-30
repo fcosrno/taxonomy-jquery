@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     clean = require('gulp-clean'),
     livereload = require('gulp-livereload');
 
+/*
 gulp.task('compress', function() {
   return gulp.src(['src/taxonomy.js','src/plugin.js'])
     .pipe(concat('concat.js'))
@@ -26,6 +27,12 @@ gulp.task('watch', ['remove-concat'],function() {
       server.changed(file.path);
   });
 });
-
+*/
+gulp.task('watch', function() {
+  var server = livereload();
+  gulp.watch(['src/*.js','example.html']).on('change', function(file) {
+      server.changed(file.path);
+  });
+});
 gulp.task('default', ['watch']);
 
