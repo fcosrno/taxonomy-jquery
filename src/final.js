@@ -1,5 +1,5 @@
  (function($) {
-
+  
   $.fn.taxonomy_jquery = function() {
 
     // Create object
@@ -10,15 +10,16 @@
     taxonomy_jquery.tagClass='.tag';
     taxonomy_jquery.tagClasses='label label-default';
     taxonomy_jquery.tagActiveClass='.tag-active';
-    taxonomy_jquery.tagCreateClass='.taxonomy-createTag';
-    taxonomy_jquery.tagSlugData='data-taxonomy-tagSlug';
+    taxonomy_jquery.tagCreateClass='.taxonomy-create-tag';
+    taxonomy_jquery.tagUndo='.tag-undo';
+    taxonomy_jquery.tagSlugData='data-taxonomy-tag-slug';
     taxonomy_jquery.addInput='#taxonomy-cloud-input';
-    taxonomy_jquery.newTagsHiddenField='taxonomy-newTags[]';
+    taxonomy_jquery.newTagsHiddenField='taxonomy-new-tags[]';
 
     // Containers
-    taxonomy_jquery.existingTags = [];
-    taxonomy_jquery.newTags = [];
-    taxonomy_jquery.activeTags = [];
+    taxonomy_jquery.existingTags = {};
+    taxonomy_jquery.newTags = {};
+    taxonomy_jquery.activeTags = {};
 
     /////////////////////////////
     /// Logic methods.
@@ -26,7 +27,7 @@
     /////////////////////////////
 
     /**
-     * Initializes the plugin by adding elements to cloud.
+     * Initializes the plugin by injecting properties to the list items.
      * 
      * @return {null}
      */
@@ -34,15 +35,28 @@
       // Iterate through tag list
       taxonomy_jquery.listClass.find('li').each(function(){
         var tag = $(this).text();
+        // Add to active array if item has "tag-active" class
+        if($(this).hasClass('tag-active'))taxonomy_jquery.addTag(tag,taxonomy_jquery.activeTags);
         // Add classes to each list item  
         $(this).addClass(taxonomy_jquery.tagClasses+' '+taxonomy_jquery.tagClass.substr(1));
-        // TODO Add slug to each list item, handy for element selection
-        // $(this).data("foo","bar");
+        // Add slug to each list item, handy for element selection
+        $(this).attr(taxonomy_jquery.tagSlugData, taxonomy_jquery.toSlug(tag));
         // Store tag in array
         taxonomy_jquery.addTag(tag,taxonomy_jquery.existingTags);
       });
       // Add "Create Tag" button
-       taxonomy_jquery.listClass.prepend('<li class="'+taxonomy_jquery.tagClasses+' '+taxonomy_jquery.tagCreateClass.substr(1)+'"><span class="fa fa-plus"></span> Create a tag</li>');
+      taxonomy_jquery.toggleInputField(false);
+      // Reset form
+      taxonomy_jquery.resetForm();
+    };
+
+    /**
+     * Convert string to lowercase and url-safe string
+     * @param  {string} string
+     * @return {string}
+     */
+    taxonomy_jquery.toSlug = function(string){
+      return encodeURIComponent(string).toLowerCase();
     };
 
     /**
@@ -56,21 +70,21 @@
       // Remove comma from tag
       var tag = this.cutInputVal(this.addInput).replace(/^,|,$/g,'');
       // Prevent duplicates
-      if(taxonomy_jquery.inArray(tag,taxonomy_jquery.existingTags)){
-        // TODO If it already exists, just toggle the activation
-        // taxonomy_jquery.toggleTagActivation();
+      if(taxonomy_jquery.inObject(tag,taxonomy_jquery.existingTags)){
+        // If it already exists, toggle on (never off)
+        taxonomy_jquery.toggleTagOn($('li['+taxonomy_jquery.tagSlugData+'="'+taxonomy_jquery.toSlug(tag)+'"]'));
       }else{
         // Otherwise, add it.
         if(this.addTag(tag,taxonomy_jquery.newTags) === true){
           // Add element to tag cloud
-          var html = '<li class="label label-default '+taxonomy_jquery.tagClass.substr(1)+' '+taxonomy_jquery.tagActiveClass.substr(1)+'">'+tag+'<a href="#" class="tag-new-undo" '+taxonomy_jquery.tagSlugData+'="'+encodeURIComponent(tag)+'"><i class="fa fa-close"></i></a></li>';
-          $(html).insertAfter($(taxonomy_jquery.tagCreateClass));
-          // Reset form array
-          this.resetForm();
+          var html = '<li class="label label-default '+taxonomy_jquery.tagClass.substr(1)+' '+taxonomy_jquery.tagActiveClass.substr(1)+'">'+tag+'<a href="#" class="'+taxonomy_jquery.tagUndo.substr(1)+'" '+taxonomy_jquery.tagSlugData+'="'+taxonomy_jquery.toSlug(tag)+'"><i class="fa fa-close"></i></a></li>';
+          $(html).prependTo(taxonomy_jquery.listClass);
           // Add to active tags
           taxonomy_jquery.addTag(tag,taxonomy_jquery.activeTags);
         }
       }
+      // Reset form array
+      this.resetForm();
     };
 
     /**
@@ -81,11 +95,9 @@
       $('input[name="'+this.newTagsHiddenField+'"]').remove();
       // Add to input
       var inputs = '';
-      if(this.newTags.length > 0){
-        $.each(this.newTags, function(key,value){
-          inputs += '<input type="text" name="'+taxonomy_jquery.newTagsHiddenField+'" value="'+value+'">';
+        $.each(this.activeTags, function(slug,tag){
+          inputs += '<input type="text" name="'+taxonomy_jquery.newTagsHiddenField+'" value="'+tag+'">';
         });
-      }
       // Insert at the end of the form using appendTo
       var currentForm =  $(this.listClass).closest("form");
       $(inputs).appendTo(currentForm);
@@ -102,7 +114,7 @@
       this.removeTag(tag,taxonomy_jquery.newTags);
       this.removeTag(tag,taxonomy_jquery.activeTags);
       // Remove cloud element
-      $("a["+taxonomy_jquery.tagSlugData+"='" + encodeURIComponent(tag) + "']").parent().remove();
+      $("a["+taxonomy_jquery.tagSlugData+"='" + taxonomy_jquery.toSlug(tag) + "']").parent().remove();
       // Reset form
       this.resetForm();
     };
@@ -115,14 +127,10 @@
      * @return {boolean}  False if the tag was not removed.
      */
     taxonomy_jquery.removeTag = function(tag,list){
-      // Remove tag from array
-      var index = list.indexOf(tag);
-      if (index > -1) {
-        list.splice(index, 1);
-        return true;
-      }else{
-        return false;
-      }
+      if(taxonomy_jquery.inObject(tag,list)){
+        var slug = taxonomy_jquery.toSlug(tag);
+        delete list[slug];
+      }else return false;
     };
 
     /**
@@ -131,9 +139,9 @@
      * @param  {array} list   Haystack
      * @return {bool}
      */
-    taxonomy_jquery.inArray = function(string,list){
-      var in_array = list.indexOf(string);
-      if(in_array<0)return false;
+    taxonomy_jquery.inObject = function(string,list){
+      var slug = taxonomy_jquery.toSlug(string);
+      if(!( slug in list))return false;
       else return true;
     };
 
@@ -145,9 +153,10 @@
      * @return {boolean}  False if the tag was not added.
      */
     taxonomy_jquery.addTag = function(tag,list){
-      if(taxonomy_jquery.inArray(tag,list)===false){
+      var slug = taxonomy_jquery.toSlug(tag);
+      if(!( slug in list)){
         // Push to array
-        list.push(tag);
+        list[slug]=tag;
         return true;
       }else{
         return false;
@@ -188,6 +197,47 @@
         // Add to active tags
         taxonomy_jquery.addTag(tag,taxonomy_jquery.activeTags);
       }
+      taxonomy_jquery.resetForm();
+    };
+
+    /**
+     * Extracted from toggleTagActivation.
+     * @param  {object} element
+     * @return {null}
+     */
+    taxonomy_jquery.toggleTagOn = function(element) {
+        var tag  = element.text();
+        // Add Class
+        if(!element.hasClass(taxonomy_jquery.tagActiveClass.substr(1))){
+          element.addClass(taxonomy_jquery.tagActiveClass.substr(1));
+        }
+        // Add to active tags
+        taxonomy_jquery.addTag(tag,taxonomy_jquery.activeTags);
+    };
+    /**
+     * Show or hide tags input field and "Create a tag" button
+     * @param  {boolean} boolswitch
+     * @return {null}
+     */
+    taxonomy_jquery.toggleInputField = function(boolswitch){
+      // Define a default switch value
+      if(boolswitch===undefined){
+        if($(taxonomy_jquery.addInput).length===0)boolswitch = true;
+        else boolswitch = false;
+      }
+      if(boolswitch===true){
+        var html = '<div class="form-group"><input id="'+taxonomy_jquery.addInput.substr(1)+'" type="text" class="form-control" placeholder="Add tags separated by a comma..."></div>';
+        $(html).insertBefore($(taxonomy_jquery.listClass));
+        // Focus on input field
+        $(taxonomy_jquery.addInput).focus();
+        // Remove button
+        $(taxonomy_jquery.tagCreateClass).remove();
+      }else{
+        // Remove field
+        $(taxonomy_jquery.addInput).parent().remove();
+        // Add button
+        taxonomy_jquery.listClass.prepend('<li class="'+taxonomy_jquery.tagClasses+' '+taxonomy_jquery.tagCreateClass.substr(1)+'"><span class="fa fa-plus"></span> Create a tag</li>');
+      }
     };
 
     /////////////////////////////
@@ -200,11 +250,7 @@
      * @return {bool} false
      */
     $(taxonomy_jquery.listClass).on('click',taxonomy_jquery.tagCreateClass,function(){
-      // Show tag input field to add tags
-      if($(taxonomy_jquery.addInput).length===0){
-        var html = '<div class="form-group"><input id="'+taxonomy_jquery.addInput.substr(1)+'" type="text" class="form-control" placeholder="Add tags separated by a comma..."></div>';
-        $(html).insertBefore($(taxonomy_jquery.listClass));
-      }
+      taxonomy_jquery.toggleInputField(true);
       return false;
     });
 
@@ -220,18 +266,23 @@
     /**
      * Add new tag.
      */
-    $(taxonomy_jquery.listClass).parent().on("keyup",taxonomy_jquery.addInput, function(){
-      // TODO listen for enter and tab
+    $(taxonomy_jquery.listClass).parent().on("keydown",taxonomy_jquery.addInput, function(event){
+      // listen for comma, enter or tab
       if(event.keyCode == 188 || event.keyCode == 9 || event.keyCode == 13){
+        event.preventDefault();
         taxonomy_jquery.addInputTag();
       }
-      return false;
+      // Listen for a blank value and backspace (8)
+      if(event.keyCode == 8 && $(taxonomy_jquery.addInput).val().length===0){
+        taxonomy_jquery.toggleInputField(false);
+        return false;
+      }
     });
 
     /**
      * Undo new tag.
      */
-    $(taxonomy_jquery.listClass).on('click','.tag-new-undo',function(){
+    $(taxonomy_jquery.listClass).on('click',taxonomy_jquery.tagUndo,function(){
       taxonomy_jquery.undoNewTag($(this).parent().text());
     });
 
