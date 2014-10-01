@@ -15,6 +15,10 @@ You can [see it live here](http://fcosrno.github.io/taxonomy-jquery).
 
 ## Setup
 
+Install with Bower.
+
+	bower install taxonomy-jquery
+
 Include jQuery and the library before the closing body tag.
 
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>

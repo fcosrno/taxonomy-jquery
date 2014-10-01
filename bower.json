@@ -1,0 +1,28 @@
+{
+  "name": "taxonomy-jquery",
+  "version": "0.0.1",
+  "homepage": "https://github.com/fcosrno/taxonomy-jquery",
+  "authors": [
+    "Francisco Serrano <fserrano@gmail.com>"
+  ],
+  "description": "Simple and mobile-friendly UI for tag assignment.",
+  "main": "dist/taxonomy.min.js",
+  "keywords": [
+    "taxonomy",
+    "tags",
+    "tag",
+    "jquery",
+    "plugin"
+  ],
+  "dependencies": {
+    "jquery": "1.11.1"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
