@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang=en-us>
+<head>
+	<meta charset=utf-8>
+	<title>Taxonomy jQuery Example</title>
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		body{margin-top:30px;}
+		.tag-cloud li {margin:3px;padding:10px;font-size:1em;cursor: pointer;}
+		.tag-active{background-color:red;}
+		.tag-undo{color:#fff;margin-left:10px}
+		.tag-undo:hover{color:#fff}
+	</style>
+</head>
+<body>
+	<div class="container text-center">
+		<h1>taxonomy-jquery demo</h1>
+		<h3 class="lead">Simple and mobile-friendly UI for tag assignment.</h3>
+
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-3">
+				<form action="#">
+					<ul class="tag-cloud list-inline">
+						<li>First Tag</li>
+						<li>Second Tag</li>
+						<li>Third Tag</li>
+						<li class="tag-active">Pre-selected Tag</li>
+					</ul>
+				</form>
+				<br>
+				<h4>Try out these tests.</h4>
+				<ul class="list-unstyled">
+					<li>Click on tags to select and deselect.</li>
+					<li>Click on <em>Create a tag</em> to add tags.</li>
+					<li>Type a comma, tab or enter to keep adding tags.</li>
+					<li>Undo the new tag by clicking on the x.</li>
+					<li>Get rid of the input field with backspace.</li>
+					<li>Add a duplicate to notice you aren't allowed.</li>
+					<li>Add a duplicate with different casing; also not allowed.</li>
+				</ul>
+			</div>
+		</div>
+		<br><br>
+		<a href="https://github.com/fcosrno/taxonomy-jquery" class="btn btn-default btn-lg">View the GitHub project</a>
+	</div>
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="taxonomy.min.js"></script>
+	<script>
+	$('.tag-cloud').taxonomy_jquery();
+	</script>
+</body>
+</html>
