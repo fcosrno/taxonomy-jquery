@@ -1,5 +1,17 @@
  (function($) {
-  
+  /**
+   * Similar to text(), but without children elements.
+   * Source: http://stackoverflow.com/a/20851691
+   */
+  $.fn.justtext = function() {
+      var str = '';
+      this.contents().each(function() {
+          if (this.nodeType == 3) {
+              str += this.textContent || this.innerText || '';
+          }
+      });
+      return str;
+  };
   $.fn.taxonomy_jquery = function() {
 
     // Create object
@@ -10,11 +22,12 @@
     taxonomy_jquery.tagClass='.tag';
     taxonomy_jquery.tagClasses='label label-default';
     taxonomy_jquery.tagActiveClass='.tag-active';
-    taxonomy_jquery.tagCreateClass='.taxonomy-create-tag';
+    taxonomy_jquery.tagCreateClass='.tag-create';
     taxonomy_jquery.tagUndo='.tag-undo';
-    taxonomy_jquery.tagSlugData='data-taxonomy-tag-slug';
-    taxonomy_jquery.addInput='#taxonomy-cloud-input';
+    taxonomy_jquery.tagSlugData='data-tag-slug';
+    taxonomy_jquery.addInput='#tag-cloud-input';
     taxonomy_jquery.newTagsHiddenField='taxonomy-new-tags[]';
+    taxonomy_jquery.undoCharacter='X';
 
     // Containers
     taxonomy_jquery.existingTags = {};
@@ -77,7 +90,7 @@
         // Otherwise, add it.
         if(this.addTag(tag,taxonomy_jquery.newTags) === true){
           // Add element to tag cloud
-          var html = '<li class="label label-default '+taxonomy_jquery.tagClass.substr(1)+' '+taxonomy_jquery.tagActiveClass.substr(1)+'">'+tag+'<a href="#" class="'+taxonomy_jquery.tagUndo.substr(1)+'" '+taxonomy_jquery.tagSlugData+'="'+taxonomy_jquery.toSlug(tag)+'"><i class="fa fa-close"></i></a></li>';
+          var html = '<li class="label label-default '+taxonomy_jquery.tagClass.substr(1)+' '+taxonomy_jquery.tagActiveClass.substr(1)+'">'+tag+'<a href="#" class="'+taxonomy_jquery.tagUndo.substr(1)+'" '+taxonomy_jquery.tagSlugData+'="'+taxonomy_jquery.toSlug(tag)+'">'+taxonomy_jquery.undoCharacter+'</a></li>';
           $(html).prependTo(taxonomy_jquery.listClass);
           // Add to active tags
           taxonomy_jquery.addTag(tag,taxonomy_jquery.activeTags);
@@ -96,7 +109,7 @@
       // Add to input
       var inputs = '';
         $.each(this.activeTags, function(slug,tag){
-          inputs += '<input type="text" name="'+taxonomy_jquery.newTagsHiddenField+'" value="'+tag+'">';
+          inputs += '<input type="hidden" name="'+taxonomy_jquery.newTagsHiddenField+'" value="'+tag+'">';
         });
       // Insert at the end of the form using appendTo
       var currentForm =  $(this.listClass).closest("form");
@@ -110,11 +123,29 @@
      * @param {string} tag
      */
     taxonomy_jquery.undoNewTag = function(tag){
+      /*
+  <li class="label label-default tag tag-active">
+    None
+    <a href="#" class="tag-undo" data-tag-slug="none">
+    <i class="fa fa-close"></i>
+    </a>
+  </li>  
+
+  <li class="label label-default tag tag-active">
+  SEt
+  <a href="#" class="tag-undo" data-tag-slug="set">X</a>
+  </li>
+
+       */
       // Remove tag from arrays
       this.removeTag(tag,taxonomy_jquery.newTags);
       this.removeTag(tag,taxonomy_jquery.activeTags);
       // Remove cloud element
-      $("a["+taxonomy_jquery.tagSlugData+"='" + taxonomy_jquery.toSlug(tag) + "']").parent().remove();
+      $("a["+taxonomy_jquery.tagSlugData+"='" + taxonomy_jquery.toSlug(tag) + "']")
+      .parent(".tag")
+      .remove();
+      console.log($("a["+taxonomy_jquery.tagSlugData+"='" + taxonomy_jquery.toSlug(tag) + "']")
+      .parent(".tag"));
       // Reset form
       this.resetForm();
     };
@@ -236,7 +267,7 @@
         // Remove field
         $(taxonomy_jquery.addInput).parent().remove();
         // Add button
-        taxonomy_jquery.listClass.prepend('<li class="'+taxonomy_jquery.tagClasses+' '+taxonomy_jquery.tagCreateClass.substr(1)+'"><span class="fa fa-plus"></span> Create a tag</li>');
+        taxonomy_jquery.listClass.prepend('<li class="'+taxonomy_jquery.tagClasses+' '+taxonomy_jquery.tagCreateClass.substr(1)+'">+ Create a tag</li>');
       }
     };
 
@@ -283,7 +314,8 @@
      * Undo new tag.
      */
     $(taxonomy_jquery.listClass).on('click',taxonomy_jquery.tagUndo,function(){
-      taxonomy_jquery.undoNewTag($(this).parent().text());
+      var tag = $(this).parent().justtext();
+      taxonomy_jquery.undoNewTag(tag);
     });
 
     // And... launch!

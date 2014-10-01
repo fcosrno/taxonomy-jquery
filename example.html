@@ -1,8 +1,9 @@
-<html>
+<!doctype html>
+<html lang=en-us>
 <head>
+	<meta charset=utf-8>
 	<title>Taxonomy jQuery Example</title>
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<style>
 		body{margin-top:30px;}
 		.tag-cloud li {margin:3px;padding:10px;font-size:1em;cursor: pointer;}
@@ -15,18 +16,15 @@
 	<div class="container">
 		<form action="#">
 			<ul class="tag-cloud list-inline">
-				<li>HTML</li>
-				<li class="tag-active">JavaScript</li>
-				<li>Response</li>
-				<li>Request</li>
-				<li>404 Not Found</li>
-				<li class="tag-active">PHP</li>
-				<li>jQuery</li>
+				<li>First Tag</li>
+				<li>Second Tag</li>
+				<li>Third Tag</li>
+				<li class="tag-active">Pre-selected Tag</li>
 			</ul>
 		</form>
 	</div>
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="src/final.js"></script>
+	<script src="src/taxonomy-jquery.js"></script>
 	<script>
 	$('.tag-cloud').taxonomy_jquery();
 	</script>
