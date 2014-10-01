@@ -22,7 +22,7 @@ Install with Bower.
 Include jQuery and the library before the closing body tag.
 
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="bower_components/dist/taxonomy-jquery.min.js"></script>
+	<script src="bower_components/taxonomy-jquery/dist/taxonomy-jquery.min.js"></script>
 	
 
 Maybe add a little CSS.
