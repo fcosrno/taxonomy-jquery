@@ -111,9 +111,14 @@ Class assigned to the anchor in the newly created tag. This is the link the user
 
 ## Roadmap
 
+**Version 0.0.3**
+
+* Bugfix: Focus back to button on input backspace
+
 **Version 0.2.0**
 
-* Ability to customize settings like "Create a tag" button language.
+* Customize settings like "Create a tag" button language
+* Define form target where input array should go
 
 **Version 0.3.0**
 
