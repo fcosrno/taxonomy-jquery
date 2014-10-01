@@ -130,8 +130,6 @@
       $("a["+taxonomy_jquery.tagSlugData+"='" + taxonomy_jquery.toSlug(tag) + "']")
       .parent(".tag")
       .remove();
-      console.log($("a["+taxonomy_jquery.tagSlugData+"='" + taxonomy_jquery.toSlug(tag) + "']")
-      .parent(".tag"));
       // Reset form
       this.resetForm();
     };
