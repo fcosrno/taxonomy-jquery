@@ -40,7 +40,7 @@ Maybe add a little CSS.
 List your tags inside a form element.
 
 	<form action="#">
-		<ul id="my-tags">
+		<ul id="tag-cloud">
 			<li>First Tag</li>
 			<li>Second Tag</li>
 			<li>Third Tag</li>

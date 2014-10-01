@@ -123,20 +123,6 @@
      * @param {string} tag
      */
     taxonomy_jquery.undoNewTag = function(tag){
-      /*
-  <li class="label label-default tag tag-active">
-    None
-    <a href="#" class="tag-undo" data-tag-slug="none">
-    <i class="fa fa-close"></i>
-    </a>
-  </li>  
-
-  <li class="label label-default tag tag-active">
-  SEt
-  <a href="#" class="tag-undo" data-tag-slug="set">X</a>
-  </li>
-
-       */
       // Remove tag from arrays
       this.removeTag(tag,taxonomy_jquery.newTags);
       this.removeTag(tag,taxonomy_jquery.activeTags);
