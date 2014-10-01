@@ -1,10 +1,12 @@
 # taxonomy-jquery
 
-Simple and mobile-friendly UI for tag assignment. You can add new or select previously defined tags. This approach provides an alternative to the typeahead implementation by instead displaying all available tags to the user.
+Simple and mobile-friendly UI for tag assignment. 
+
+You can add new or select previously defined tags. This approach provides an alternative to the typeahead implementation by instead displaying all available tags to the user.
 
 ## Demo
 
-You can see it live here.
+You can [see it live here](http://fcosrno.github.io/taxonomy-jquery).
 
 ## Features
 * Displays all tags, active or inactive, for easy toggling (no typeahead)
