@@ -1,12 +1,12 @@
 {
   "name": "taxonomy-jquery",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/fcosrno/taxonomy-jquery",
   "authors": [
     "Francisco Serrano <fserrano@gmail.com>"
   ],
   "description": "Simple and mobile-friendly UI for tag assignment.",
-  "main": "dist/taxonomy.min.js",
+  "main": "./dist/taxonomy.min.js",
   "keywords": [
     "taxonomy",
     "tags",
@@ -23,6 +23,9 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "*.md",
+    "gulpfile.js",
+    "*.json"
   ]
 }
