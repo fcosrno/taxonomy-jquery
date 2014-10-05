@@ -117,14 +117,11 @@ Class assigned to the anchor in the newly created tag. This is the link the user
 
 **Version 0.2.0**
 
+* Add typeahead for new tags to alert user on duplicate
 * Customize settings like "Create a tag" button language
 * Define form target where input array should go
 
 **Version 0.3.0**
-
-* Add a parent dropdown to organize tags. Maybe use the Adjacency List Model design pattern for hierarchical data (read below), although this could complicate tags too much.
-
-**Version 0.4.0**
 
 * Switch between other common UI styles in settings. We could have `mobile-friendly` (current) or `type-ahead`, which would be similar to [this](https://github.com/xoxco/jQuery-Tags-Input), [this](https://github.com/aehlke/tag-it), [this](https://github.com/max-favilli/tagmanager), or [this implementation](http://getkirby.com/blog/panel-tags-field/demo).
 
@@ -138,6 +135,9 @@ Example initialization:
 
 **Version 1.0.0**
 
+* Apply [http://www.reddit.com/r/reviewmycode/comments/2hymuf/jquery_code_review_my_opensourced_plugin/](these wonderful suggestions)
+* Maybe change `taxonomy-new-tags[]` to `selected-tags[]`
+* Add a parent dropdown to organize tags. Maybe use the Adjacency List Model design pattern for hierarchical data (read below), although this could complicate tags too much.
 * Improve code with a more standard plugin pattern? Helpful resources:
 	- [http://jqueryboilerplate.com/](http://jqueryboilerplate.com/)
 	- [https://github.com/jquery-boilerplate/jquery-boilerplate](https://github.com/jquery-boilerplate/jquery-boilerplate)
