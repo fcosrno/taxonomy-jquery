@@ -135,7 +135,7 @@ Example initialization:
 
 **Version 1.0.0**
 
-* Apply [http://www.reddit.com/r/reviewmycode/comments/2hymuf/jquery_code_review_my_opensourced_plugin/](these wonderful suggestions)
+* Apply [these wonderful suggestions](http://www.reddit.com/r/reviewmycode/comments/2hymuf/jquery_code_review_my_opensourced_plugin/)
 * Maybe change `taxonomy-new-tags[]` to `selected-tags[]`
 * Add a parent dropdown to organize tags. Maybe use the Adjacency List Model design pattern for hierarchical data (read below), although this could complicate tags too much.
 * Improve code with a more standard plugin pattern? Helpful resources:
