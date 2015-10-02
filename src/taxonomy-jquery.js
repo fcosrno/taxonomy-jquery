@@ -12,22 +12,23 @@
       });
       return str;
   };
-  $.fn.taxonomy_jquery = function() {
+  $.fn.taxonomy_jquery = function(options) {
 
-    // Create object
-    var taxonomy_jquery = {};
+    // Accept options
+    var taxonomy_jquery = $.extend({
+      tagClass:'.tag',
+      tagClasses:'label label-default',
+      tagActiveClass:'.tag-active',
+      tagCreateClass:'.tag-create',
+      tagUndo:'.tag-undo',
+      tagSlugData:'data-tag-slug',
+      addInput:'#tag-cloud-input',
+      newTagsHiddenField:'taxonomy-new-tags[]',
+      undoCharacter:'X'
+    }, options );
 
     // Define element vars
     taxonomy_jquery.listClass=this;
-    taxonomy_jquery.tagClass='.tag';
-    taxonomy_jquery.tagClasses='label label-default';
-    taxonomy_jquery.tagActiveClass='.tag-active';
-    taxonomy_jquery.tagCreateClass='.tag-create';
-    taxonomy_jquery.tagUndo='.tag-undo';
-    taxonomy_jquery.tagSlugData='data-tag-slug';
-    taxonomy_jquery.addInput='#tag-cloud-input';
-    taxonomy_jquery.newTagsHiddenField='taxonomy-new-tags[]';
-    taxonomy_jquery.undoCharacter='X';
 
     // Containers
     taxonomy_jquery.existingTags = {};
