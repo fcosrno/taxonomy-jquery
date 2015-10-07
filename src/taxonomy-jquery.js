@@ -90,7 +90,7 @@
         taxonomy_jquery.toggleTagOn($('li['+taxonomy_jquery.tagSlugData+'="'+taxonomy_jquery.toSlug(tag)+'"]'));
       }else{
         // Otherwise, add it.
-        if(this.addTag(tag,taxonomy_jquery.newTags) === true){
+        if(this.addTag(tag,taxonomy_jquery.newTags) === true && tag){
           // Add element to tag cloud
           var html = '<li class="label label-default '+taxonomy_jquery.tagClass.substr(1)+' '+taxonomy_jquery.tagActiveClass.substr(1)+'">'+tag+'<a href="#" class="'+taxonomy_jquery.tagUndo.substr(1)+'" '+taxonomy_jquery.tagSlugData+'="'+taxonomy_jquery.toSlug(tag)+'">'+taxonomy_jquery.undoCharacter+'</a></li>';
           $(html).prependTo(taxonomy_jquery.listClass);
