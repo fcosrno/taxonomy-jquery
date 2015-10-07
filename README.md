@@ -12,6 +12,7 @@ You can [see it live here](http://fcosrno.github.io/taxonomy-jquery).
 * Displays all tags, active or inactive, for easy toggling (no typeahead)
 * Automatic duplication avoidance
 * Mobile-friendly
+* Multiple tag containers
 
 ## Setup
 
@@ -83,6 +84,36 @@ Active tags that the user selects or adds will be appended to the form as part o
 	</form>
 
 When you submit the form, you can get the selected tags by accessing `taxonomy-new-tags`.
+
+## Options
+
+You can override defaults by passing in a string literal on instantiation. Here is a list of default options followed by examples of the most used.
+
+	tagClass:'.tag',
+	tagClasses:'label label-default',
+	tagActiveClass:'.tag-active',
+	tagCreateClass:'.tag-create',
+	tagUndo:'.tag-undo',
+	tagSlugData:'data-tag-slug',
+	addInput:'#tag-cloud-input',
+	hiddenFieldName:'taxonomy-new-tags[]',
+	undoCharacter:'X',
+	createButton:true
+
+### hiddenFieldName
+
+By default all selected tags will be appended to the form as `taxonomy-new-tags[]`. You can override this with the `hiddenFieldName` option. This is especially useful if you have two taxonomies under the same form. Please note the name needs to end in array brackets.
+
+	<script>
+		$('#my-tags').taxonomy_jquery({hiddenFieldName:'my-tags[]'});
+		$('#my-other-tags).taxonomy_jquery({hiddenFieldName:'my-other-tags[]'});
+	</script>
+
+### createButton
+
+If you want to hide the "Create a tag" button, make this option false. This is useful if you want to manage tag creation elsewhere.
+
+ 
 
 ## CSS Elements
 

@@ -15,7 +15,13 @@
 <body>
 	<div class="container">
 		<form action="#">
-			<ul class="tag-cloud list-inline">
+			<ul id="my-tags" class="tag-cloud list-inline">
+				<li>First Tag</li>
+				<li>Second Tag</li>
+				<li>Third Tag</li>
+				<li class="tag-active">Pre-selected Tag</li>
+			</ul>
+			<ul id="my-second-tags" class="tag-cloud list-inline">
 				<li>First Tag</li>
 				<li>Second Tag</li>
 				<li>Third Tag</li>
@@ -26,7 +32,11 @@
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<script src="dist/taxonomy.min.js"></script>
 	<script>
-	$('.tag-cloud').taxonomy_jquery();
+	$('#my-tags').taxonomy_jquery();
+	$('#my-second-tags').taxonomy_jquery({
+		createButton:false,
+		hiddenFieldName:'my-second-tags[]'
+	});
 	</script>
 </body>
 </html>

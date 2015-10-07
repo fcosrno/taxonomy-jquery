@@ -23,8 +23,9 @@
       tagUndo:'.tag-undo',
       tagSlugData:'data-tag-slug',
       addInput:'#tag-cloud-input',
-      newTagsHiddenField:'taxonomy-new-tags[]',
-      undoCharacter:'X'
+      hiddenFieldName:'taxonomy-new-tags[]',
+      undoCharacter:'X',
+      createButton:true
     }, options );
 
     // Define element vars
@@ -106,11 +107,11 @@
      */
     taxonomy_jquery.resetForm = function(){
       // Clear all
-      $('input[name="'+this.newTagsHiddenField+'"]').remove();
+      $('input[name="'+this.hiddenFieldName+'"]').remove();
       // Add to input
       var inputs = '';
         $.each(this.activeTags, function(slug,tag){
-          inputs += '<input type="hidden" name="'+taxonomy_jquery.newTagsHiddenField+'" value="'+tag+'">';
+          inputs += '<input type="hidden" name="'+taxonomy_jquery.hiddenFieldName+'" value="'+tag+'">';
         });
       // Insert at the end of the form using appendTo
       var currentForm =  $(this.listClass).closest("form");
@@ -252,7 +253,9 @@
         // Remove field
         $(taxonomy_jquery.addInput).parent().remove();
         // Add button
-        taxonomy_jquery.listClass.prepend('<li class="'+taxonomy_jquery.tagClasses+' '+taxonomy_jquery.tagCreateClass.substr(1)+'">+ Create a tag</li>');
+        if(taxonomy_jquery.createButton){
+          taxonomy_jquery.listClass.prepend('<li class="'+taxonomy_jquery.tagClasses+' '+taxonomy_jquery.tagCreateClass.substr(1)+'">+ Create a tag</li>');
+        }
       }
     };
 
