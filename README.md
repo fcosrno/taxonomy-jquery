@@ -99,6 +99,7 @@ You can override defaults by passing in a string literal on instantiation. Here 
 	hiddenFieldName:'taxonomy-new-tags[]',
 	undoCharacter:'X',
 	createButton:true
+        createButtonPositon:'first'
 
 ### hiddenFieldName
 
@@ -113,7 +114,7 @@ By default all selected tags will be appended to the form as `taxonomy-new-tags[
 
 If you want to hide the "Create a tag" button, make this option false. This is useful if you want to manage tag creation elsewhere.
 
- 
+If you want to put the "Create a tag" button at the end of the list, set `createButtonPosition` to `true`. 
 
 ## CSS Elements
 
