@@ -26,7 +26,8 @@
       hiddenFieldName:'taxonomy-new-tags[]',
       undoCharacter:'X',
       createButton:true,
-      createButtonPosition:'first'
+      createButtonPosition:'first',
+      createButtonLabel:'+ Create a tag'
     }, options );
 
     // Define element vars
@@ -256,9 +257,9 @@
         // Add button
         if(taxonomy_jquery.createButton){
 	  if(taxonomy_jquery.createButtonPosition == 'last'){
-            taxonomy_jquery.listClass.append('<li class="'+taxonomy_jquery.tagClasses+' '+taxonomy_jquery.tagCreateClass.substr(1)+'">+ Create a tag</li>');
+            taxonomy_jquery.listClass.append('<li class="'+taxonomy_jquery.tagClasses+' '+taxonomy_jquery.tagCreateClass.substr(1)+'">'+taxonomy_jquery.createButtonLabel+'</li>');
 	  }else{
-	    taxonomy_jquery.listClass.prepend('<li class="'+taxonomy_jquery.tagClasses+' '+taxonomy_jquery.tagCreateClass.substr(1)+'">+ Create a tag</li>');
+	    taxonomy_jquery.listClass.prepend('<li class="'+taxonomy_jquery.tagClasses+' '+taxonomy_jquery.tagCreateClass.substr(1)+'">'+taxonomy_jquery.createButtonLabel+'</li>');
 	  }
         }
       }
