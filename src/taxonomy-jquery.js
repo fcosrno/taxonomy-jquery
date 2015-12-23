@@ -249,11 +249,7 @@
         $(html).insertBefore($(taxonomy_jquery.listClass));
         // Focus on input field
         $(taxonomy_jquery.addInput).focus();
-        // Remove button
-        $(taxonomy_jquery.tagCreateClass).remove();
       }else{
-        // Remove field
-        $(taxonomy_jquery.addInput).parent().remove();
         // Add button
         if(taxonomy_jquery.createButton){
 	  if(taxonomy_jquery.createButtonPosition == 'last'){
@@ -276,6 +272,8 @@
      */
     $(taxonomy_jquery.listClass).on('click',taxonomy_jquery.tagCreateClass,function(){
       taxonomy_jquery.toggleInputField(true);
+      // Remove button
+      $(this).remove();
       return false;
     });
 
@@ -300,6 +298,8 @@
       // Listen for a blank value and backspace (8)
       if(event.keyCode == 8 && $(taxonomy_jquery.addInput).val().length===0){
         taxonomy_jquery.toggleInputField(false);
+        // Remove field
+        $(this).remove();
         return false;
       }
     });
