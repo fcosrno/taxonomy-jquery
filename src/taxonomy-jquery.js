@@ -25,7 +25,9 @@
       addInput:'#tag-cloud-input',
       hiddenFieldName:'taxonomy-new-tags[]',
       undoCharacter:'X',
-      createButton:true
+      createButton:true,
+      createButtonPosition:'first',
+      createButtonLabel:'+ Create a tag'
     }, options );
 
     // Define element vars
@@ -254,7 +256,11 @@
         $(taxonomy_jquery.addInput).parent().remove();
         // Add button
         if(taxonomy_jquery.createButton){
-          taxonomy_jquery.listClass.prepend('<li class="'+taxonomy_jquery.tagClasses+' '+taxonomy_jquery.tagCreateClass.substr(1)+'">+ Create a tag</li>');
+	  if(taxonomy_jquery.createButtonPosition == 'last'){
+            taxonomy_jquery.listClass.append('<li class="'+taxonomy_jquery.tagClasses+' '+taxonomy_jquery.tagCreateClass.substr(1)+'">'+taxonomy_jquery.createButtonLabel+'</li>');
+	  }else{
+	    taxonomy_jquery.listClass.prepend('<li class="'+taxonomy_jquery.tagClasses+' '+taxonomy_jquery.tagCreateClass.substr(1)+'">'+taxonomy_jquery.createButtonLabel+'</li>');
+	  }
         }
       }
     };

@@ -98,7 +98,9 @@ You can override defaults by passing in a string literal on instantiation. Here 
 	addInput:'#tag-cloud-input',
 	hiddenFieldName:'taxonomy-new-tags[]',
 	undoCharacter:'X',
-	createButton:true
+	createButton:true,
+        createButtonPositon:'first',
+        createButtonLabel:'+ Create a tag'
 
 ### hiddenFieldName
 
@@ -113,7 +115,17 @@ By default all selected tags will be appended to the form as `taxonomy-new-tags[
 
 If you want to hide the "Create a tag" button, make this option false. This is useful if you want to manage tag creation elsewhere.
 
- 
+If you want to put the "Create a tag" button at the end of the list, set `createButtonPosition` to `true`. To change the label on the "Create a tag" button, set `createButtonLabel` to any string.
+
+Example: (sets the "Create a tag" button after at the end of the list with "Other +" as the label)
+
+	<script>
+		$('#my-tags').taxonomy_jquery({
+			createButtonPosition:'last',
+			createButtonLabel:'Other +'
+		});
+	</script>
+
 
 ## CSS Elements
 
